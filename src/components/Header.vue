@@ -8,8 +8,14 @@
 			/>
 
 			<div class="buttons_wrap">
-				<Button text="Users" />
-				<Button text="Sign up" />
+				<Button
+					@click="clickAnchor('users')"
+					text="Users"
+				/>
+				<Button
+					@click="clickAnchor('sign-up')"
+					text="Sign up"
+				/>
 			</div>
 		</div>
 	</header>
@@ -20,7 +26,13 @@ export default {
 	components: {
 		Button,
 	},
-	setup() {},
+	props: {},
+	setup(props, { emit }) {
+		const clickAnchor = (anchor) => {
+			emit('onClickAnchor', anchor);
+		};
+		return { clickAnchor };
+	},
 };
 </script>
 <style lang="scss">
@@ -30,6 +42,10 @@ export default {
 	.logo {
 		max-width: 104px;
 		max-height: 26px;
+	}
+	@media (max-width: 1200px) {
+		padding-left: 60px;
+		padding-right: 60px;
 	}
 }
 .buttons_wrap {

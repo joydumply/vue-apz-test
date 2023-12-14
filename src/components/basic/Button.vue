@@ -2,6 +2,8 @@
 	<div
 		class="button"
 		:class="buttonTypeClass"
+		:disabled="isDisabled"
+		@click="onClick"
 	>
 		{{ text }}
 	</div>
@@ -18,11 +20,20 @@ export default {
 			type: String,
 			default: 'yellow',
 		},
+		disabled: {
+			type: Boolean,
+			default: false,
+		},
 	},
-	setup(props) {
+	setup(props, { emit }) {
 		const buttonTypeClass = computed(() => props.type);
+		const isDisabled = computed(() => props.disabled);
 
-		return { buttonTypeClass };
+		const onClick = () => {
+			emit('clicked', isDisabled.value);
+		};
+
+		return { buttonTypeClass, isDisabled, onClick };
 	},
 };
 </script>
@@ -37,8 +48,17 @@ export default {
 	color: #000;
 	border-radius: 80px;
 	cursor: pointer;
+	transition: all linear 0.4s;
 	&.yellow {
 		background-color: #f4e041;
+		&:hover {
+			background-color: #ffe302;
+		}
+	}
+	&[disabled='true'] {
+		background: #b4b4b4 !important;
+		color: #fff !important;
+		cursor: not-allowed;
 	}
 }
 </style>

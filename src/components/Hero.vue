@@ -11,6 +11,7 @@
 				class="hero-text"
 			/>
 			<Button
+				@click="clickAnchor('sign-up')"
 				class="hero-btn"
 				text="Sign up"
 			/>
@@ -26,6 +27,13 @@ export default {
 		Heading,
 		Text,
 		Button,
+	},
+	props: {},
+	setup(props, { emit }) {
+		const clickAnchor = (anchor) => {
+			emit('onClickAnchor', anchor);
+		};
+		return { clickAnchor };
 	},
 };
 </script>
